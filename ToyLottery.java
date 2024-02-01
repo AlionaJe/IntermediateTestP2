@@ -56,3 +56,31 @@ public class ToyLottery {
             System.out.println("Магазин пуст, добавьте новые игрушки.");
             return;
         }
+
+        // Суммируем частоты всех игрушек в магазине
+        int totalFrequency = toysInStore.stream().mapToInt(toy -> toy.frequency).sum();
+
+        // Генерируем случайное число в диапазоне от 0 до totalFrequency - 1
+        int randomValue = random.nextInt(totalFrequency);
+
+        // Определяем, какая игрушка выпала в результате розыгрыша
+        Toy selectedToy = null;
+        int currentFrequency = 0;
+        for (Toy toy : toysInStore) {
+            currentFrequency += toy.frequency;
+            if (randomValue < currentFrequency) {
+                selectedToy = toy;
+                break;
+            }
+        }
+
+        // Уменьшаем количество выбранной игрушки в магазине
+        if (selectedToy != null) {
+            selectedToy.frequency--;
+            // Добавляем название выбранной игрушки в выигранные призы
+            prize.add(selectedToy.name);
+            System.out.println("Поздравляем! Вы выиграли " + selectedToy.name);
+        } else {
+            System.out.println("Не удалось определить выигрышную игрушку.");
+        }
+    }
