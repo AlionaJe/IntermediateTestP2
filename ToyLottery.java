@@ -84,3 +84,16 @@ public class ToyLottery {
             System.out.println("Не удалось определить выигрышную игрушку.");
         }
     }
+
+    // Метод для записи результатов розыгрыша в файл
+    public static void writeToFile() {
+        try (FileWriter writer = new FileWriter("results.txt")) {
+            for (String result : prize) {
+                writer.write(result + "\n");
+            }
+            System.out.println("Результаты розыгрыша записаны в файл results.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
